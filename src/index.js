@@ -3,11 +3,14 @@ require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 const fs = require('fs');
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
+app.use(bodyParser.raw());
 
 app.post('/backup', async (req, res) => {
     const filename = req.query.filename;
+    console.log(filename)
     fs.writeFileSync(filename, req.body);
     return res.json({ status: 'ok' });
 });
