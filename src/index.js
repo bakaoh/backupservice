@@ -14,7 +14,7 @@ app.get('/status', async (req, res) => {
     return res.json({
         "initialized": true,
         "testnet": false,
-        "start_ts": startMs,
+        "start_ts": startMs / 1000,
         "service": "KeyBackup",
         "version": "0.0.1"
     });
