@@ -11,13 +11,6 @@ app.use(bodyParser.raw());
 
 app.get('/status', async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
-    return res.json({ status: 'ok' });
-});
-
-app.post('/backup', async (req, res) => {
-    const filename = req.query.filename;
-    console.log(filename)
-    fs.writeFileSync(`backup/${filename}`, req.body);
     return res.json({
         "initialized": true,
         "testnet": false,
@@ -25,6 +18,13 @@ app.post('/backup', async (req, res) => {
         "service": "KeyBackup",
         "version": "0.0.1"
     });
+});
+
+app.post('/backup', async (req, res) => {
+    const filename = req.query.filename;
+    console.log(filename)
+    fs.writeFileSync(`backup/${filename}`, req.body);
+    return res.json({ status: 'ok' });
 });
 
 async function start(port) {
