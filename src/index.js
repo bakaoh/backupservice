@@ -9,15 +9,15 @@ let startMs = 0;
 const app = express();
 app.use(bodyParser.raw());
 
-const testnet = process.env.TESTNET;
+const isTestnet = process.env.TESTNET;
 const port = parseInt(process.env.PORT);
-const path = process.env.BACKUP_PATH;
+const backupPath = process.env.BACKUP_PATH;
 
 app.get('/status', async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     return res.json({
         "initialized": true,
-        "testnet": testnet,
+        "testnet": isTestnet,
         "start_ts": startMs / 1000,
         "service": "KeyBackup",
         "version": "0.0.1"
@@ -27,7 +27,7 @@ app.get('/status', async (req, res) => {
 app.post('/backup', async (req, res) => {
     const filename = req.query.filename;
     console.log(filename)
-    fs.writeFileSync(`${path}/${filename}`, req.body);
+    fs.writeFileSync(`${backupPath}/${filename}`, req.body);
     return res.json({ status: 'ok' });
 });
 
