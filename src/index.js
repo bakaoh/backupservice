@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 let startMs = 0;
 
 const app = express();
-app.use(bodyParser.raw());
+app.use(bodyParser.raw({ limit: '100mb' }));
 
 const isTestnet = process.env.TESTNET;
 const port = parseInt(process.env.PORT);
